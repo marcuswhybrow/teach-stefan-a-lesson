@@ -1,0 +1,68 @@
+<html>
+
+<head>
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div class="p-16 pb-0">
+    <h1 class="text-3xl bg-fuchsia-300 rounded-lg p-4">Hello</h1>
+  </div>
+
+  <div class="p-16 []">
+    <ul _="
+      on load
+        set s to document.location.search
+        make a URLSearchParams from s
+        set params to it
+        set id to params.get('id')
+        set price to params.get('price')
+        set f to .freelancer in me
+        set m to .manager in me 
+        set t to .timeframe in me
+        set f's innerHTML to id
+        set m's innerHTML to id
+        set t's innerHTML to id
+      " class="
+        [&>li]:mb-4
+        [&>li>span]:ml-4
+        [&>li>span]:display-inline-block
+      ">
+      <li>Freelancer: <span class="freelancer"></span></li>
+      <li>Commission Manager: <span class="manager"></span></li>
+      <li>Timeframe: <span class="timeframe"></span></li>
+    </ul>
+  </div>
+  <div class="payment">
+    <div class="one">
+      <h2>One</h2>
+      <button class="bg-pink-800 text-white px-4 py-2 rounded hover:bg-pink-700 tracking-widest uppercase" _="
+          on click
+            log 'clicked'
+            set p to the closest parent .payment
+            set one to the first .one in p
+            set two to the first .two in p
+            log one 
+            log two
+            add .hidden to one
+            remove .hidden from two
+          ">Pay £<span _="
+            on load 
+              set s to document.location.search
+              make a URLSearchParams from s
+              set params to it
+              set price to params.get('price')
+              set my innerHTML to price
+              
+            "></span></button>
+    </div>
+    <div class="two hidden">
+      <h2>Two</h2>
+      <p>Paid!</p>
+    </div>
+  </div>
+</body>
+
+</html>
